@@ -1,33 +1,33 @@
-version: '3.2'
+version: "3.2"
 services:
   blackbox:
     image: prom/blackbox-exporter:${BLACKBOX_EXPORTER_TAG}
     ports:
-    - 9115:9115
+      - 9115:9115
     command:
-    - --config.file=/etc/blackbox/blackbox.yml
+      - --config.file=/etc/blackbox/blackbox.yml
     volumes:
-    - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
+      - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
     depends_on:
-    - web
+      - web
   prometheus:
     image: prom/prometheus:${PROMETHEUS_TAG}
     ports:
-    - 9090:9090
+      - 9090:9090
     command:
-    - --config.file=/etc/prometheus/prometheus.yml
+      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-    - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
-    - blackbox
+      - blackbox
   web:
     build:
-      context: web
+      context: ./web
       args:
         goPackage: github.com/prometheus-community/prometheus-playground/blackbox-exporter/web
         goVersion: 1.11
       cache_from:
-      - golang:1.11
-      - scratch
+        - golang:1.11
+        - scratch
     ports:
-    - 2112:2112
+      - 2112:2112
