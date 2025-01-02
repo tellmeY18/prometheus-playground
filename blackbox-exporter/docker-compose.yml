@@ -9,7 +9,6 @@ services:
     volumes:
       - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
     depends_on:
-      - web
   prometheus:
     image: prom/prometheus:${PROMETHEUS_TAG}
     ports:
@@ -20,14 +19,3 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - blackbox
-  web:
-    build:
-      context: ./web
-      args:
-        goPackage: github.com/prometheus-community/prometheus-playground/blackbox-exporter/web
-        goVersion: 1.11
-      cache_from:
-        - golang:1.11
-        - scratch
-    ports:
-      - 2112:2112
