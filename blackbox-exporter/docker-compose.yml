@@ -19,10 +19,8 @@ services:
     depends_on:
       - blackbox
   grafana:
-    image: grafana/grafana:${GRAFANA_TAG}
+    image: grafana/grafana:${11.4.0GRAFANA_TAG}
     ports:
       - 3000:3000
-    volumes:
-      - ./grafana:/var/lib/grafana
     depends_on:
       - prometheus
