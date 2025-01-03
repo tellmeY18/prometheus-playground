@@ -8,7 +8,6 @@ services:
       - --config.file=/etc/blackbox/blackbox.yml
     volumes:
       - ./blackbox/blackbox.yml:/etc/blackbox/blackbox.yml
-    depends_on:
   prometheus:
     image: prom/prometheus:${PROMETHEUS_TAG}
     ports:
@@ -19,3 +18,11 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - blackbox
+  grafana:
+    image: grafana/grafana:${GRAFANA_TAG}
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
