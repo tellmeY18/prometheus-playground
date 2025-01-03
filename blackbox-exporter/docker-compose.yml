@@ -16,6 +16,7 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     depends_on:
       - blackbox
   grafana:
@@ -24,3 +25,5 @@ services:
       - 3000:3000
     depends_on:
       - prometheus
+volumes:
+  prometheus_data:
