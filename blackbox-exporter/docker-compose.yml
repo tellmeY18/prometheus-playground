@@ -19,7 +19,7 @@ services:
     depends_on:
       - blackbox
   grafana:
-    image: grafana/grafana:${11.4.0GRAFANA_TAG}
+    image: grafana/grafana:${GRAFANA_TAG}
     ports:
       - 3000:3000
     depends_on:
